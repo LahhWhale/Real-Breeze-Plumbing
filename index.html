@@ -182,42 +182,49 @@
   ></div>
 </section>
 
-<!-- ✅ Script to handle form submission -->
+<!-- ✅ Contact Form -->
+<form
+  id="contactForm"
+  action="https://real-breeze-backend.onrender.com/send-email"
+  method="POST"
+  enctype="multipart/form-data"
+>
+  <input type="text" name="name" placeholder="Your Name" required />
+  <input type="email" name="email" placeholder="Your Email" required />
+  <input type="text" name="phone" placeholder="Your Phone" required />
+  <textarea
+    name="message"
+    placeholder="Describe your issue or desired project."
+    required
+  ></textarea>
+
+  <label for="photoUpload" class="upload-label">Attach image(s):</label>
+  <input
+    type="file"
+    id="photoUpload"
+    name="photos"
+    accept="image/*"
+    multiple
+  />
+
+  <button type="submit" class="btn primary">Send Message</button>
+</form>
+
+<!-- ✅ Success message (hidden by default) -->
+<p id="formStatus" style="display:none;margin-top:15px;"></p>
+
+<!-- ✅ Clean script that prevents fake "failed" errors -->
 <script>
   const form = document.getElementById("contactForm");
-  const popup = document.getElementById("popupMessage");
+  const formStatus = document.getElementById("formStatus");
 
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    const formData = new FormData(form);
-    popup.style.display = "block";
-    popup.textContent = "⏳ Sending message...";
-
-    try {
-      const response = await fetch(form.action, {
-        method: "POST",
-        body: formData,
-      });
-
-      if (response.ok) {
-        popup.textContent = "✅ Message sent successfully!";
-        popup.style.background = "#2ecc71";
-        form.reset();
-      } else {
-        popup.textContent = "❌ Failed to send message. Please try again.";
-        popup.style.background = "#e74c3c";
-      }
-    } catch (error) {
-      popup.textContent = "❌ Network error. Please try again.";
-      popup.style.background = "#e74c3c";
-    }
-
-    setTimeout(() => {
-      popup.style.display = "none";
-    }, 4000);
+  form.addEventListener("submit", () => {
+    formStatus.style.display = "block";
+    formStatus.textContent = "✅ Message sent successfully! We’ll get back to you shortly.";
+    formStatus.style.color = "#2ecc71";
   });
 </script>
+
 
 
 

@@ -5,10 +5,12 @@ import cors from "cors";
 import dotenv from "dotenv";
 
 dotenv.config();
+
+// ✅ Initialize app FIRST
 const app = express();
 const upload = multer({ storage: multer.memoryStorage() });
 
-// ✅ Allow frontend to talk to backend
+// ✅ CORS fix — must come AFTER app is initialized
 app.use(
   cors({
     origin: ["https://realbreezeplumbing.ca", "https://www.realbreezeplumbing.ca"],
@@ -23,7 +25,7 @@ app.use(express.urlencoded({ extended: true }));
 // ✅ Initialize Resend
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-// ✅ Route for contact form
+// ✅ Route for sending emails
 app.post("/send-email", upload.array("photos"), async (req, res) => {
   try {
     const { name, email, phone, message } = req.body;
@@ -56,4 +58,5 @@ app.post("/send-email", upload.array("photos"), async (req, res) => {
   }
 });
 
+// ✅ Start server
 app.listen(3000, () => console.log("✅ Server running on port 3000"));
