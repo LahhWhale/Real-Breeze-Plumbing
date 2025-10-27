@@ -1,65 +1,45 @@
-// =====================================
-// Real Breeze Plumbing - Email Server (Gmail Version)
-// =====================================
-
 import express from "express";
 import multer from "multer";
-import nodemailer from "nodemailer";
 import dotenv from "dotenv";
-import path from "path";
-import { fileURLToPath } from "url";
+import { Resend } from "resend";
 
 dotenv.config();
-
 const app = express();
 const upload = multer({ storage: multer.memoryStorage() });
+const resend = new Resend(process.env.RESEND_API_KEY);
 
-// Fix __dirname for ES modules
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// Serve your static website files (index.html, css/, assets/)
-app.use(express.static(__dirname));
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// =====================================
-// 📩 Email Sending Route
-// =====================================
 app.post("/send-email", upload.array("photos"), async (req, res) => {
   try {
     const { name, email, phone, message } = req.body;
 
-    // Gmail SMTP configuration
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: process.env.EMAIL_USER, // your Gmail address
-        pass: process.env.EMAIL_PASS, // your Gmail App Password
-      },
+    // Build attachments if photos were uploaded
+    const attachments = req.files?.length
+      ? req.files.map((file) => ({
+          filename: file.originalname,
+          content: file.buffer.toString("base64"),
+          encoding: "base64",
+        }))
+      : [];
+
+    // Send email using Resend API
+    await resend.emails.send({
+      from: "Real Breeze Plumbing <onboarding@resend.dev>",
+      to: "realbreezeplumbing@gmail.com",
+      subject: "New Quote Request from Website",
+      html: `
+        <h3>New Quote Request</h3>
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Phone:</strong> ${phone}</p>
+        <p><strong>Message:</strong><br>${message}</p>
+      `,
+      attachments: attachments,
     });
 
-    const mailOptions = {
-      from: `"Real Breeze Plumbing" <${process.env.EMAIL_USER}>`,
-      to: "realbreezeplumbing@gmail.com", // you’ll receive it here
-      subject: "New Quote Request from Website",
-      text: `
-        🧾 New Quote Request from Website
-        
-        Name: ${name}
-        Email: ${email}
-        Phone: ${phone}
-        
-        Message:
-        ${message}
-      `,
-      attachments: req.files.map((file) => ({
-        filename: file.originalname,
-        content: file.buffer,
-      })),
-    };
-
-    await transporter.sendMail(mailOptions);
-    console.log(`✅ Email sent from ${name} (${email})`);
+    console.log("✅ Email sent successfully!");
     res.status(200).send("Email sent successfully!");
   } catch (error) {
     console.error("❌ Error sending email:", error);
@@ -67,10 +47,4 @@ app.post("/send-email", upload.array("photos"), async (req, res) => {
   }
 });
 
-// =====================================
-// 🚀 Start the Server
-// =====================================
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`✅ Server running at http://localhost:${PORT}`);
-});
+app.listen(3000, () => console.log("✅ Server running on port 3000"));
