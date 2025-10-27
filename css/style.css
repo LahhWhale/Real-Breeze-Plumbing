@@ -1,0 +1,459 @@
+/* =====================
+   GLOBAL STYLES
+===================== */
+* {margin:0;padding:0;box-sizing:border-box;}
+body {
+  font-family:'Poppins',sans-serif;
+  background-color:#1e003e;
+  color:#f8f8ff;
+  line-height:1.6;
+  scroll-behavior:smooth;
+}
+.container {width:90%;max-width:1200px;margin:0 auto;}
+a{text-decoration:none;}
+
+/* =====================
+   HEADER
+===================== */
+header {
+  position:fixed;
+  width:100%;
+  top:0;
+  left:0;
+  z-index:1000;
+  background:transparent;
+  transition:background .3s,box-shadow .3s;
+}
+header.scrolled {
+  background:linear-gradient(135deg,#3b0066,#a64aff);
+  box-shadow:0 4px 20px rgba(0,0,0,.4);
+}
+.header-container {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:18px 0;
+  flex-wrap:nowrap;
+}
+.logo {
+  display:flex;
+  align-items:center;
+  white-space:nowrap;
+  gap:10px;
+  font-weight:700;
+  font-size:22px;
+  color:#ffd700;
+}
+.logo-img {
+  width:75px;
+  height:auto;
+  flex-shrink:0;
+}
+
+nav a {
+  color:#f8f8ff;
+  margin:0 15px;
+  font-weight:500;
+  transition:color .3s;
+}
+nav a:hover {color:#ffd700;}
+.header-buttons .btn {margin-left:10px;}
+
+/* =====================
+   BUTTONS
+===================== */
+.btn {
+  display:inline-block;
+  padding:10px 25px;
+  border-radius:30px;
+  font-weight:600;
+  transition:all .3s ease;
+  text-align:center;
+}
+
+/* === Header Call Now Button (GREEN) === */
+.call-btn {
+  background:#2ecc71;       /* bright green */
+  color:#fff;
+  border:none;
+  border-radius:30px;
+  padding:10px 20px;
+  font-weight:600;
+  box-shadow:0 0 10px rgba(46,204,113,0.4);
+  transition:background 0.3s ease, box-shadow 0.3s ease;
+}
+.call-btn:hover {
+  background:#27ae60;       /* darker green hover */
+  box-shadow:0 0 15px rgba(39,174,96,0.6);
+}
+
+/* === Book Online button (PURPLE) === */
+.book-btn {
+  background:#a64aff;
+  color:#fff;
+  border:none;
+  border-radius:30px;
+  padding:10px 20px;
+  font-weight:600;
+  transition:background 0.3s ease, box-shadow 0.3s ease;
+}
+.book-btn:hover {
+  background:#9133ff;
+  box-shadow:0 0 10px rgba(166,74,255,0.5);
+}
+
+/* === Call Now button in hero (GREEN) === */
+.btn.primary {
+  background:#2ecc71;
+  color:#fff;
+  border:none;
+  box-shadow:0 0 10px rgba(46,204,113,0.4);
+}
+.btn.primary:hover {
+  background:#27ae60;
+  box-shadow:0 0 15px rgba(39,174,96,0.6);
+}
+
+/* === Book Online in hero (PURPLE) === */
+.btn.secondary {
+  background:#a64aff;
+  color:#fff;
+  border:none;
+}
+.btn.secondary:hover {
+  background:#9133ff;
+}
+
+
+
+/* =====================
+   HERO
+===================== */
+.hero {
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+  background:linear-gradient(135deg,#3b0066,#a64aff);
+}
+.hero-content{max-width:800px;z-index:2;}
+.hero h1{font-size:48px;margin-bottom:20px;color:#ffd700;}
+.hero p{font-size:18px;margin-bottom:30px;color:#eee;}
+.hero-buttons .btn{margin:10px;}
+
+/* =====================
+   ABOUT
+===================== */
+#about{background:#f8f8ff;color:#1b1b1b;padding:100px 0;}
+.about-container{display:flex;flex-wrap:wrap;align-items:center;gap:50px;}
+.about-text{flex:1;}
+.about-text h2{color:#3b0066;margin-bottom:20px;}
+.about-text li{margin-bottom:10px;font-weight:600;color:#3b0066;}
+.about-image img{width:100%;border-radius:20px;box-shadow:0 8px 20px rgba(0,0,0,.3);}
+
+/* =====================
+   SERVICES
+===================== */
+#services {
+  background:#3b0066;
+  color:#fff;
+  padding:100px 0;
+}
+#services h2 {
+  text-align:center;
+  color:#ffd700;
+  margin-bottom:50px;
+  font-size:36px;
+  letter-spacing:0.5px;
+}
+.services-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:30px;
+}
+.service-card {
+  background:#fff;
+  color:#1b1b1b;
+  border-radius:20px;
+  padding:30px;
+  box-shadow:0 6px 18px rgba(0,0,0,0.1);
+  transition:transform 0.3s ease, box-shadow 0.3s ease;
+}
+.service-card:hover {
+  transform:translateY(-8px);
+  box-shadow:0 8px 25px rgba(255,215,0,0.3);
+}
+.service-card h3 {
+  color:#3b0066;
+  margin-bottom:10px;
+  font-weight:700;
+}
+.service-card p {
+  color:#333;
+  font-family:'Lora',serif;
+  line-height:1.6;
+}
+
+/* =====================
+   TESTIMONIALS
+===================== */
+#testimonials{background:#3b0066;padding:100px 0;text-align:center;}
+#testimonials h2{color:#ffd700;margin-bottom:40px;}
+.testimonials blockquote{
+  background:rgba(255,255,255,.1);
+  max-width:700px;
+  margin:20px auto;
+  padding:30px;
+  border-radius:20px;
+  font-style:italic;
+  color:#fff;
+}
+.testimonials cite{display:block;margin-top:10px;color:#ffd700;font-weight:600;}
+
+/* =====================
+   CONTACT
+===================== */
+#contact{background:#f8f8ff;color:#1b1b1b;padding:100px 0;}
+.contact-container{display:flex;flex-wrap:wrap;gap:40px;}
+.contact-text{flex:1;}
+.contact-text h2{color:#3b0066;margin-bottom:20px;}
+.contact-text form input,
+.contact-text form textarea{
+  width:100%;
+  padding:12px;
+  margin-bottom:15px;
+  border:1px solid #ccc;
+  border-radius:10px;
+}
+.contact-text form button{
+  width:100%;
+  background:#3b0066;
+  color:#fff;
+  border:none;
+  padding:14px;
+  border-radius:30px;
+  font-weight:600;
+  transition:.3s;
+}
+.contact-text form button:hover{background:#5a0099;}
+.contact-map{flex:1;}
+.contact-map iframe{width:100%;height:350px;border:none;border-radius:20px;}
+
+/* =====================
+   FOOTER & FLOATING CALL
+===================== */
+footer{
+  background:linear-gradient(135deg,#3b0066,#a64aff);
+  text-align:center;
+  padding:20px 0;
+  font-size:14px;
+  color:#fff;
+}
+/* Floating call button (green version) */
+.floating-call {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #2ecc71; /* green */
+  color: #ffffff; /* white icon */
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  box-shadow: 0 4px 20px rgba(46, 204, 113, 0.4);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.floating-call:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 25px rgba(39, 174, 96, 0.6);
+}
+
+/* Uploadcare styling (smaller choose file button) */
+.upload-label {
+  font-weight: 600;
+  display: block;
+  margin: 10px 0 5px;
+  color: #3b0066;
+}
+
+.uploadcare--widget__button_type_open {
+  background: #a64aff;
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  padding: 8px 18px; /* smaller padding */
+  font-size: 14px;   /* smaller text */
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s;
+}
+
+.uploadcare--widget__button_type_open:hover {
+  background: #9133ff;
+}
+
+/* Ensure spacing between "Choose files" and "Send Message" */
+.upload-label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #3b0066;
+}
+
+.uploadcare--widget {
+  display: block;
+  margin-bottom: 20px; /* adds space between buttons */
+}
+
+.uploadcare--widget__button_type_open {
+  background: #a64aff;
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  padding: 8px 18px;
+  font-size: 14px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s;
+}
+
+.uploadcare--widget__button_type_open:hover {
+  background: #9133ff;
+}
+
+/* =====================
+   WHY CHOOSE US SECTION
+===================== */
+#why-choose {
+  background: #f8f8ff;
+  color: #1b1b1b;
+  padding: 100px 0;
+}
+
+.why-choose-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 40px;
+  flex-wrap: nowrap;
+}
+
+.why-text {
+  flex: 1;
+  min-width: 350px;
+}
+
+.why-text h2 {
+  color: #3b0066;
+  margin-bottom: 20px;
+}
+
+.why-text p {
+  margin-bottom: 20px;
+  line-height: 1.7;
+}
+
+.why-text ul {
+  list-style: none;
+  padding: 0;
+}
+
+.why-text li {
+  margin-bottom: 10px;
+  font-weight: 600;
+  color: #3b0066;
+}
+
+/* === Right-side logo fixes === */
+.why-image {
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+
+.why-image img {
+  width: 120px;         /* final balanced size */
+  height: auto;
+  object-fit: contain;
+  margin-top: 10px;
+  margin-right: 10px;
+  opacity: 0.95;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.why-image img:hover {
+  transform: scale(1.05);
+  opacity: 1;
+}
+
+/* Responsive stacking */
+@media (max-width: 900px) {
+  .why-choose-container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .why-image img {
+    margin: 30px auto 0;
+    width: 100px;
+  }
+}
+
+
+
+/* =====================
+   RESPONSIVE
+===================== */
+@media(max-width:900px){
+  .about-container,.contact-container{flex-direction:column;}
+  nav,.header-buttons{display:none;}
+}
+
+.order-materials {
+  margin-top: 30px; /* positions under the Call Now button */
+  text-align: center;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  background: transparent; /* removes dark background */
+  border-radius: 15px;
+  padding: 0;
+  color: #ffffff;
+  font-size: 16px;
+  line-height: 1.6;
+  box-shadow: none; /* no shadow */
+}
+
+.order-materials p {
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.order-btn {
+  display: inline-block;
+  background: #ffd700; /* yellow */
+  color: #3b0066; /* purple text */
+  padding: 12px 30px;
+  border-radius: 30px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(255, 215, 0, 0.4);
+}
+
+.order-btn:hover {
+  background: #ffcc00;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.6);
+}
+
+
+
