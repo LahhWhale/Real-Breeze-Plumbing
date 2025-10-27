@@ -1,48 +1,54 @@
 import express from "express";
 import multer from "multer";
-import dotenv from "dotenv";
 import { Resend } from "resend";
 import cors from "cors";
-app.use(cors({ origin: "https://realbreezeplumbing.ca" }));
-
+import dotenv from "dotenv";
 
 dotenv.config();
 const app = express();
 const upload = multer({ storage: multer.memoryStorage() });
-const resend = new Resend(process.env.RESEND_API_KEY);
 
+// ✅ Allow frontend to talk to backend
+app.use(
+  cors({
+    origin: ["https://realbreezeplumbing.ca", "https://www.realbreezeplumbing.ca"],
+    methods: ["POST"],
+  })
+);
+
+// ✅ Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// ✅ Initialize Resend
+const resend = new Resend(process.env.RESEND_API_KEY);
+
+// ✅ Route for contact form
 app.post("/send-email", upload.array("photos"), async (req, res) => {
   try {
     const { name, email, phone, message } = req.body;
 
-    // Build attachments if photos were uploaded
-    const attachments = req.files?.length
-      ? req.files.map((file) => ({
-          filename: file.originalname,
-          content: file.buffer.toString("base64"),
-          encoding: "base64",
-        }))
-      : [];
+    const attachments =
+      req.files?.map((file) => ({
+        filename: file.originalname,
+        content: file.buffer.toString("base64"),
+      })) || [];
 
-    // Send email using Resend API
-    await resend.emails.send({
-      from: "Real Breeze Plumbing <onboarding@resend.dev>",
+    const result = await resend.emails.send({
+      from: "Real Breeze Plumbing <realbreezeplumbing@realbreeze.ca>",
       to: "realbreezeplumbing@gmail.com",
       subject: "New Quote Request from Website",
       html: `
-        <h3>New Quote Request</h3>
+        <h2>New Quote Request</h2>
         <p><strong>Name:</strong> ${name}</p>
         <p><strong>Email:</strong> ${email}</p>
         <p><strong>Phone:</strong> ${phone}</p>
-        <p><strong>Message:</strong><br>${message}</p>
+        <p><strong>Message:</strong> ${message}</p>
       `,
-      attachments: attachments,
+      attachments,
     });
 
-    console.log("✅ Email sent successfully!");
+    console.log("✅ Email sent successfully:", result);
     res.status(200).send("Email sent successfully!");
   } catch (error) {
     console.error("❌ Error sending email:", error);
