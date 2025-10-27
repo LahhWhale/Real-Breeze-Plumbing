@@ -122,15 +122,18 @@
         <h2>Request a Quote</h2>
         <p>Tell us about your plumbing issue — we’ll get back to you quickly.</p>
 
-        <form action="https://real-breeze-backend.onrender.com/send-email" method="POST" enctype="multipart/form-data">
+<form action="https://real-breeze-backend.onrender.com/send-email" 
+      method="POST" 
+      enctype="multipart/form-data">
   <input type="text" name="name" placeholder="Your Name" required />
   <input type="email" name="email" placeholder="Your Email" required />
   <input type="text" name="phone" placeholder="Your Phone" required />
-  <textarea name="message" placeholder="Describe your issue" required></textarea>
-  <label for="photoUpload">Attach image(s):</label>
+  <textarea name="message" placeholder="Describe your issue or desired project." required></textarea>
+  <label for="photoUpload" class="upload-label">Attach image(s):</label>
   <input type="file" id="photoUpload" name="photos" accept="image/*" multiple />
   <button type="submit" class="btn primary">Send Message</button>
 </form>
+
 
 <p id="formStatus" style="margin-top:15px;"></p>
 
