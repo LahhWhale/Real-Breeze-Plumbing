@@ -2,6 +2,9 @@ import express from "express";
 import multer from "multer";
 import dotenv from "dotenv";
 import { Resend } from "resend";
+import cors from "cors";
+app.use(cors({ origin: "https://realbreezeplumbing.ca" }));
+
 
 dotenv.config();
 const app = express();
