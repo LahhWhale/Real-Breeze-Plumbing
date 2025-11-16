@@ -213,8 +213,6 @@
 </script>
 
 
-
-
   <!-- FOOTER -->
   <footer>
     <div class="container footer-container">
@@ -231,26 +229,6 @@
     const header = document.getElementById('main-header');
     window.addEventListener('scroll', () => {
       header.classList.toggle('scrolled', window.scrollY > 50);
-    });
-
-    // Send form data to Node server
-    document.getElementById('contactForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const form = e.target;
-      const data = new FormData(form);
-      const status = document.getElementById('formStatus');
-      status.style.display = 'block';
-      status.textContent = 'Sending...';
-
-      const response = await fetch('/send-email', {
-        method: 'POST',
-        body: data,
-      });
-
-      status.textContent = response.ok
-        ? '✅ Message sent successfully!'
-        : '❌ Failed to send message. Please try again later.';
-      if (response.ok) form.reset();
     });
   </script>
 </body>
