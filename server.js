@@ -10,26 +10,18 @@ dotenv.config();
 const app = express();
 const upload = multer({ storage: multer.memoryStorage() });
 
-// ✅ CORS – allow your live site + handle preflight cleanly
-app.use(
-  cors({
-    origin: ["https://realbreezeplumbing.ca", "https://www.realbreezeplumbing.ca"],
-    methods: ["GET", "POST", "OPTIONS"],
-    allowedHeaders: ["Content-Type"],
-  })
-);
+// ✅ SUPER PERMISSIVE CORS (for this simple API)
+app.use(cors());           // allow all origins for now
+app.options("*", cors());  // respond to all preflight OPTIONS
 
-// Also reply to OPTIONS preflight for any route
-app.options("*", cors());
-
-// ✅ Middleware for parsing body (non-file fields)
+// ✅ Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // ✅ Resend client
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-// ✅ Main email route
+// ✅ Email route
 app.post("/send-email", upload.array("photos"), async (req, res) => {
   try {
     const { name, email, phone, message } = req.body;
@@ -62,6 +54,6 @@ app.post("/send-email", upload.array("photos"), async (req, res) => {
   }
 });
 
-// ✅ Use Render's port when available
+// ✅ Use Render's port env
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
